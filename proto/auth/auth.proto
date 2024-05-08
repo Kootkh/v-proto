@@ -1,0 +1,48 @@
+// файл .proto затем можно использовать для генерации исходного кода на
+// различных языках программирования с помощью компилятора protoc.
+
+// Определение версии синтаксиса ProtoBuf
+syntax = "proto3";
+
+// import "google/protobuf/timestamp.proto";
+
+// Опционально: указываем пакет (помогает предотвратить конфликты имен в больших проектах)
+//package user;
+package auth;
+
+option go_package = "vapi.v1;vapiv1";
+
+service Auth {
+	rpc Register (RegisterRequest) returns (RegisterResponse);
+	rpc Login (LoginRequest) returns (LoginResponse);
+	rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+}
+
+message RegisterRequest {
+	string email = 1; // Электронная почта пользователя
+	string password = 2;	// Пароль пользователя
+}
+
+message RegisterResponse {
+	int64 user_id = 1; // Идентификатор пользователя
+	// string token = 2; // Токен пользователя
+}
+
+message LoginRequest {
+	string email = 1; // Электронная почта пользователя
+	string password = 2;	// Пароль пользователя
+	int32 app_id = 3; // Идентификатор приложения
+}
+
+message LoginResponse {
+	string token = 1; // Токен пользователя
+	int64 user_id = 2; // Идентификатор пользователя
+}
+
+message IsAdminRequest {
+	int64 user_id = 1; // Идентификатор пользователя
+}
+
+message IsAdminResponse {
+	bool is_admin = 1; // Является ли пользователь администратором
+}

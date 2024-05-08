@@ -1,0 +1,50 @@
+// файл .proto затем можно использовать для генерации исходного кода на
+// различных языках программирования с помощью компилятора protoc.
+
+// Определение версии синтаксиса ProtoBuf
+syntax = "proto3";
+
+// import "google/protobuf/timestamp.proto";
+
+// Опционально: указываем пакет (помогает предотвратить конфликты имен в больших проектах)
+//package user;
+package api;
+
+//
+option go_package = "vapi.v1;vapiv1";
+
+// Определение сервиса APIService
+service APIService {
+	// EXAMPLE: Определение метода для получения информации о пользователе
+	rpc GetUser (GetUserRequest) returns (GetUserResponse);
+
+	rpc GetAPI(APIRequest) returns (APIResponse);
+}
+
+// EXAMPLE: Определение запроса для получения информации о пользователе
+message GetUserRequest {
+  int32 user_id = 1;    // Идентификатор пользователя, о котором нужно получить информацию
+}
+
+// EXAMPLE: Определение ответа, содержащего информацию о пользователе
+message GetUserResponse {
+  string user = 1;        // Данные пользователя
+}
+
+// Определение сообщения APIRequest
+message APIRequest {
+	// int32 id = 1;								// Уникальный идентификатор пользователя
+  // string name = 2;							// Имя пользователя
+  // string email = 3;						// Электронная почта пользователя
+  // repeated string roles = 4;		// Роли пользователя в системе
+	string name = 1;
+	int32 type = 2;
+}
+
+message APIResponse {
+	// int32 id = 1;								// Уникальный идентификатор пользователя
+	// string name = 2;							// Имя пользователя
+	// string email = 3;						// Электронная почта пользователя
+	// repeated string roles = 4;		// Роли пользователя в системе
+}
+
